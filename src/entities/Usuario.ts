@@ -8,7 +8,7 @@ import {
 
 @Entity("usuarios")
 export class Usuario {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ primaryKeyConstraintName: "pk_id_usuario" })
   id_usuario: number;
 
   @Column({ type: "text" })

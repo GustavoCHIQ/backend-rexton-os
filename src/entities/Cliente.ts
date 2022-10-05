@@ -8,7 +8,7 @@ import {
 
 @Entity('clientes')
 export class Cliente {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ primaryKeyConstraintName: 'pk_id_cliente' })
   id_cliente: number
 
   @Column({ type: 'text' })

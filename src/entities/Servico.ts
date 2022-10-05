@@ -11,7 +11,7 @@ import { OrdemDeServico } from './OrdemDeServico'
 
 @Entity('servicos')
 export class Servico {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ primaryKeyConstraintName: 'pk_id_servico' })
   id_servico: number
 
   @Column({ type: 'text' })

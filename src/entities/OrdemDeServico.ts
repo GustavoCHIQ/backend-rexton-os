@@ -16,15 +16,15 @@ import { Servico } from './Servico'
 
 @Entity('ordemdeservicos')
 export class OrdemDeServico {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn({ primaryKeyConstraintName: 'pk_id_os' })
   id_os: number
 
   @OneToOne(() => Cliente)
-  @JoinColumn({ name: 'id_cliente' })
+  @JoinColumn({ name: 'id_cliente', foreignKeyConstraintName: 'fk_id_cliente' })
   cliente: Cliente
 
   @OneToOne(() => Funcionario)
-  @JoinColumn({ name: 'id_funcionario' })
+  @JoinColumn({ name: 'id_funcionario', foreignKeyConstraintName: 'fk_id_funcionario' })
   funcionario: Funcionario
 
   @OneToMany(() => Servico, servico => servico.os)
