@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../src/repositories/funcionarioRepository.ts"],
+  "sourcesContent": ["import { AppDataSource } from '../data-source'\nimport { Funcionario } from '../entities/Funcionario'\n\nexport const funcionarioRepository = AppDataSource.getRepository(Funcionario)\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA,yBAA8B;AAC9B,yBAA4B;AAErB,MAAM,wBAAwB,iCAAc,cAAc;",
+  "names": []
+}

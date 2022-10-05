@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../src/entities/Funcionario.ts"],
+  "sourcesContent": ["import {\n  Column,\n  Entity,\n  PrimaryGeneratedColumn,\n} from 'typeorm'\n\n@Entity('funcionarios')\nexport class Funcionario {\n  @PrimaryGeneratedColumn({ primaryKeyConstraintName: 'id_funcionario' })\n  id_funcionario: number\n\n  @Column({ type: 'text' })\n  nome: string\n\n  @Column({ type: 'text' })\n  cpf: string\n\n  @Column({ type: 'text' })\n  endereco: string\n\n  @Column({ type: 'boolean', default: true })\n  ativo: string\n\n  @Column({ type: 'text' })\n  dataNascimento: string\n\n  @Column({ type: 'text' })\n  dataAdmissao: string\n\n  @Column({ type: 'text' })\n  dataDemissao: string\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA,qBAIO;AAGA,wBAAkB;AAAA;AAEvB;AAAA,EADC,2CAAuB,EAAE,0BAA0B;AAAA,GACpD,AAFK,YAEL;AAGA;AAAA,EADC,2BAAO,EAAE,MAAM;AAAA,GAChB,AALK,YAKL;AAGA;AAAA,EADC,2BAAO,EAAE,MAAM;AAAA,GAChB,AARK,YAQL;AAGA;AAAA,EADC,2BAAO,EAAE,MAAM;AAAA,GAChB,AAXK,YAWL;AAGA;AAAA,EADC,2BAAO,EAAE,MAAM,WAAW,SAAS;AAAA,GACpC,AAdK,YAcL;AAGA;AAAA,EADC,2BAAO,EAAE,MAAM;AAAA,GAChB,AAjBK,YAiBL;AAGA;AAAA,EADC,2BAAO,EAAE,MAAM;AAAA,GAChB,AApBK,YAoBL;AAGA;AAAA,EADC,2BAAO,EAAE,MAAM;AAAA,GAChB,AAvBK,YAuBL;AAvBK;AAAA,EADN,2BAAO;AAAA,GACD;",
+  "names": []
+}

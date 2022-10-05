@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../src/repositories/ordemDeServicoRepository.ts"],
+  "sourcesContent": ["import { AppDataSource } from '../data-source'\nimport { OrdemDeServico } from '../entities/OrdemDeServico'\n\nexport const ordemDeServicoRepository = AppDataSource.getRepository(OrdemDeServico)\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA,yBAA8B;AAC9B,4BAA+B;AAExB,MAAM,2BAA2B,iCAAc,cAAc;",
+  "names": []
+}

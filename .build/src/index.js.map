@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../src/index.ts"],
+  "sourcesContent": ["import express from 'express'\nimport { AppDataSource } from './data-source'\nimport routes from './routes'\n\nAppDataSource.initialize().then(() => {\n  const app = express()\n\n  app.use(express.json())\n\n  app.use(routes)\n\n  return app.listen(3000)\n})\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA,qBAAoB;AACpB,yBAA8B;AAC9B,oBAAmB;AAEnB,iCAAc,aAAa,KAAK,MAAM;AACpC,QAAM,MAAM;AAEZ,MAAI,IAAI,uBAAQ;AAEhB,MAAI,IAAI;AAER,SAAO,IAAI,OAAO;AAAA;",
+  "names": []
+}

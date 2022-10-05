@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../src/repositories/clienteRepository.ts"],
+  "sourcesContent": ["import { AppDataSource } from '../data-source'\nimport { Cliente } from '../entities/Cliente'\n\nexport const clienteRepository = AppDataSource.getRepository(Cliente)\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA,yBAA8B;AAC9B,qBAAwB;AAEjB,MAAM,oBAAoB,iCAAc,cAAc;",
+  "names": []
+}

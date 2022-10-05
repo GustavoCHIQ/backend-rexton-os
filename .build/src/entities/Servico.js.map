@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../src/entities/Servico.ts"],
+  "sourcesContent": ["import {\n  Column,\n  CreateDateColumn,\n  Entity,\n  ManyToOne,\n  PrimaryGeneratedColumn,\n  UpdateDateColumn,\n} from 'typeorm'\n\nimport { OrdemDeServico } from './OrdemDeServico'\n\n@Entity('servicos')\nexport class Servico {\n  @PrimaryGeneratedColumn({ primaryKeyConstraintName: 'pk_id_servico' })\n  id_servico: number\n\n  @Column({ type: 'text' })\n  descricao: string\n\n  @Column({ type: 'float' })\n  valor: number\n\n  @ManyToOne(() => OrdemDeServico, os => os.servicos)\n  os: OrdemDeServico\n\n  @CreateDateColumn()\n  createdAt: Date\n\n  @UpdateDateColumn()\n  updatedAt: Date\n\n}\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA,qBAOO;AAEP,4BAA+B;AAGxB,oBAAc;AAAA;AAEnB;AAAA,EADC,2CAAuB,EAAE,0BAA0B;AAAA,GACpD,AAFK,QAEL;AAGA;AAAA,EADC,2BAAO,EAAE,MAAM;AAAA,GAChB,AALK,QAKL;AAGA;AAAA,EADC,2BAAO,EAAE,MAAM;AAAA,GAChB,AARK,QAQL;AAGA;AAAA,EADC,8BAAU,MAAM,sCAAgB,QAAM,GAAG;AAAA,GAC1C,AAXK,QAWL;AAGA;AAAA,EADC;AAAA,GACD,AAdK,QAcL;AAGA;AAAA,EADC;AAAA,GACD,AAjBK,QAiBL;AAjBK;AAAA,EADN,2BAAO;AAAA,GACD;",
+  "names": []
+}

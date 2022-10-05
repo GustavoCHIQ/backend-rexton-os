@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../src/repositories/usuarioRepository.ts"],
+  "sourcesContent": ["import { AppDataSource } from '../data-source'\nimport { Usuario } from '../entities/Usuario'\n\nexport const usuarioRepository = AppDataSource.getRepository(Usuario)\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA,yBAA8B;AAC9B,qBAAwB;AAEjB,MAAM,oBAAoB,iCAAc,cAAc;",
+  "names": []
+}

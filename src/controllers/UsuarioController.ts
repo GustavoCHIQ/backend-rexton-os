@@ -3,96 +3,93 @@ import { usuarioRepository } from '../repositories/usuarioRepository'
 const bcrypt = require('bcrypt')
 
 export class UsuarioController {
-	// Criar Usuario
-	async create(req: Request, res: Response) {
-		var { nome, rg, cpf, endereco, email, telefone, senha, ativo } = req.body
+  // Criar Usuario
+  async create(req: Request, res: Response) {
+    var { nome, rg, cpf, endereco, email, telefone, senha, ativo } = req.body
 
-		const hashedPassword = await bcrypt.hash(req.body.senha, 15)
+    const hashedPassword = await bcrypt.hash(req.body.senha, 15)
 
-		try {
-			const novoUsuario = usuarioRepository.create({ nome, rg, cpf, endereco, email, telefone, senha: hashedPassword, ativo })
-			await usuarioRepository.save(novoUsuario)
+    try {
+      const novoUsuario = usuarioRepository.create({ nome, rg, cpf, endereco, email, telefone, senha: hashedPassword, ativo })
+      await usuarioRepository.save(novoUsuario)
 
-			return res.status(201).json(novoUsuario)
-		} catch (error) {
-			console.log(error)
-			return res.status(500).json({ message: 'Internal Sever Error' })
-		}
-	}
+      return res.status(201).json(novoUsuario)
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ message: 'Internal Sever Error' })
+    }
+  }
 
-	// Listar todos os usuarios
-	async list(req: Request, res: Response) {
-		try {
-			const usuario = await usuarioRepository.find({
-				select: ['id_usuario', 'nome', 'rg', 'cpf', 'endereco', 'email', 'telefone', 'ativo']
-			})
+  // Listar todos os usuarios
+  async findAll(req: Request, res: Response) {
+    try {
+      const usuario = await usuarioRepository.find({
+        select: ['id_usuario', 'nome', 'rg', 'cpf', 'endereco', 'email', 'telefone', 'ativo']
+      })
 
-			return res.status(200).json(usuario)
-		} catch (error) {
-			console.log(error)
-			return res.status(500).json({ message: 'Internal Sever Error' })
-		}
-	}
+      return res.status(200).json(usuario)
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ message: 'Internal Sever Error' })
+    }
+  }
 
-	// Listar usuarios por id
-	async listById(req: Request, res: Response) {
-		const { id_usuario } = req.params;
+  // Listar usuarios por id
+  async findById(req: Request, res: Response) {
+    const { id_usuario } = req.params;
 
-		try {
-			const usuario = await usuarioRepository.find({
-				select: ['id_usuario', 'nome', 'rg', 'cpf', 'endereco', 'email', 'telefone', 'ativo'],
-				where: {
-					id_usuario: Number(id_usuario)
-				}
-			})
+    try {
+      const usuario = await usuarioRepository.find({
+        select: ['id_usuario', 'nome', 'rg', 'cpf', 'endereco', 'email', 'telefone', 'ativo'],
+        where: {
+          id_usuario: Number(id_usuario)
+        }
+      })
 
+      if (!usuario) {
+        return res.status(404).json({ message: 'Usuário não encontrado' })
+      }
 
+      return res.status(200).json(usuario)
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ message: 'Internal Sever Error' })
+    }
+  }
 
-			if (!usuario) {
-				return res.status(404).json({ message: 'Usuário não encontrado' })
-			}
+  // Atualizar usuario
+  async update(req: Request, res: Response) {
+    const { id_usuario } = req.params;
+    const { nome, rg, cpf, endereco, email, telefone, ativo } = req.body
 
-			return res.status(200).json(usuario)
-		} catch (error) {
-			console.log(error)
-			return res.status(500).json({ message: 'Internal Sever Error' })
-		}
-	}
+    try {
+      const usuario = await usuarioRepository.findOneBy({
+        id_usuario: Number(id_usuario)
+      })
 
-	// Atualizar usuario
-	async update(req: Request, res: Response) {
-		const { id_usuario } = req.params;
-		const { nome, rg, cpf, endereco, email, telefone, ativo } = req.body
+      if (!usuario) {
+        return res.status(404).json({ message: 'Usuário não encontrado' })
+      }
 
-		try {
-			const usuario = await usuarioRepository.findOneBy({
-				id_usuario: Number(id_usuario)
-			})
+      usuarioRepository.update(usuario, { nome, rg, cpf, endereco, email, telefone, ativo })
 
-			if (!usuario) {
-				return res.status(404).json({ message: 'Usuário não encontrado' })
-			}
+      return res.status(200).end()
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ message: 'Internal Sever Error' })
+    }
+  }
 
-			usuarioRepository.update(usuario, { nome, rg, cpf, endereco, email, telefone, ativo })
+  // Apagar usuario
+  async delete(req: Request, res: Response) {
+    const { id_usuario } = req.params;
 
-			return res.status(200).end()
-		} catch (error) {
-			console.log(error)
-			return res.status(500).json({ message: 'Internal Sever Error' })
-		}
-	}
+    if (!(await usuarioRepository.findOneBy({ id_usuario: Number(id_usuario) }))) {
+      return res.status(404).json({ message: 'Usuário não encontrado' })
+    }
 
-	// Apagar usuario
-	async delete(req: Request, res: Response) {
-		const { id_usuario } = req.params;
+    await usuarioRepository.delete({ id_usuario: Number(id_usuario) })
 
-
-		if (!(await usuarioRepository.findOneBy({ id_usuario: Number(id_usuario) }))) {
-			return res.status(404).json({ message: 'Usuário não encontrado' })
-		}
-
-		await usuarioRepository.delete({ id_usuario: Number(id_usuario) })
-
-		return res.status(204).send()
-	}
+    return res.status(204).send()
+  }
 }

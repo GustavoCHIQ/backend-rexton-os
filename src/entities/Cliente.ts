@@ -32,8 +32,8 @@ export class Cliente {
   @Column({ type: 'text' })
   email: string
 
-  @Column({ type: 'date' })
-  dataNascimento = Date
+  @Column({ type: 'text' })
+  dataNascimento: string
 
   @Column({ type: 'boolean', default: true })
   ativo: boolean
