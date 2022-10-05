@@ -1,3 +1,4 @@
+import dotenv from 'dotenv'
 import express from 'express'
 import { AppDataSource } from './data-source'
 import routes from './routes'
@@ -12,5 +13,5 @@ AppDataSource.initialize().then(() => {
 
   app.use(routes)
 
-  return app.listen(3000)
+  return app.listen(process.env.PORT || 3000)
 })
