@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../src/entities/OrdemDeServico.ts"],
-  "sourcesContent": ["import {\n  Column,\n  CreateDateColumn,\n  Entity,\n  JoinColumn,\n  OneToMany,\n  OneToOne,\n  PrimaryGeneratedColumn,\n  UpdateDateColumn,\n} from 'typeorm'\n\nimport { Cliente } from './Cliente'\nimport { Funcionario } from './Funcionario'\nimport { Servico } from './Servico'\n\n\n@Entity('ordemdeservicos')\nexport class OrdemDeServico {\n  @PrimaryGeneratedColumn({ primaryKeyConstraintName: 'pk_id_os' })\n  id_os: number\n\n  @OneToOne(() => Cliente)\n  @JoinColumn({ name: 'id_cliente', foreignKeyConstraintName: 'fk_id_cliente' })\n  cliente: Cliente\n\n  @OneToOne(() => Funcionario)\n  @JoinColumn({ name: 'id_funcionario', foreignKeyConstraintName: 'fk_id_funcionario' })\n  funcionario: Funcionario\n\n  @OneToMany(() => Servico, servico => servico.os)\n  servicos: Servico[]\n\n  @CreateDateColumn()\n  createdAt: Date\n\n  @UpdateDateColumn()\n  updatedAt: Date\n}\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA,qBASO;AAEP,qBAAwB;AACxB,yBAA4B;AAC5B,qBAAwB;AAIjB,2BAAqB;AAAA;AAE1B;AAAA,EADC,2CAAuB,EAAE,0BAA0B;AAAA,GACpD,AAFK,eAEL;AAIA;AAAA,EAFC,6BAAS,MAAM;AAAA,EACf,+BAAW,EAAE,MAAM,cAAc,0BAA0B;AAAA,GAC5D,AANK,eAML;AAIA;AAAA,EAFC,6BAAS,MAAM;AAAA,EACf,+BAAW,EAAE,MAAM,kBAAkB,0BAA0B;AAAA,GAChE,AAVK,eAUL;AAGA;AAAA,EADC,8BAAU,MAAM,wBAAS,aAAW,QAAQ;AAAA,GAC7C,AAbK,eAaL;AAGA;AAAA,EADC;AAAA,GACD,AAhBK,eAgBL;AAGA;AAAA,EADC;AAAA,GACD,AAnBK,eAmBL;AAnBK;AAAA,EADN,2BAAO;AAAA,GACD;",
-  "names": []
-}

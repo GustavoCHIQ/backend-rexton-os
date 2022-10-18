@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../src/repositories/servicoRepository.ts"],
-  "sourcesContent": ["import { AppDataSource } from '../data-source'\nimport { Servico } from '../entities/Servico'\n\nexport const servicoRepository = AppDataSource.getRepository(Servico)\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA,yBAA8B;AAC9B,qBAAwB;AAEjB,MAAM,oBAAoB,iCAAc,cAAc;",
-  "names": []
-}

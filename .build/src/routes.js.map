@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../src/routes.ts"],
-  "sourcesContent": ["import { Router } from 'express'\nimport { UsuarioController } from './controllers/UsuarioController'\nimport { ClienteController } from './controllers/ClienteController'\n\nconst routes = Router()\n\n// Rotas Usuarios\nroutes.post('/usuario', new UsuarioController().create)\nroutes.get('/usuario', new UsuarioController().list)\nroutes.get('/usuario/:id_usuario', new UsuarioController().listById)\nroutes.put('/usuario/:id_usuario', new UsuarioController().update)\nroutes.delete('/usuario/:id_usuario', new UsuarioController().delete)\n\nroutes.post('/cliente', new ClienteController().create)\nroutes.get('/cliente', new ClienteController().findAll)\nroutes.get('/cliente:id_cliente', new ClienteController().findById)\nroutes.put('/cliente:id_cliente', new ClienteController().update)\nroutes.delete('/cliente', new ClienteController().delete)\n\nexport default routes\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA,qBAAuB;AACvB,+BAAkC;AAClC,+BAAkC;AAElC,MAAM,SAAS;AAGf,OAAO,KAAK,YAAY,IAAI,6CAAoB;AAChD,OAAO,IAAI,YAAY,IAAI,6CAAoB;AAC/C,OAAO,IAAI,wBAAwB,IAAI,6CAAoB;AAC3D,OAAO,IAAI,wBAAwB,IAAI,6CAAoB;AAC3D,OAAO,OAAO,wBAAwB,IAAI,6CAAoB;AAE9D,OAAO,KAAK,YAAY,IAAI,6CAAoB;AAChD,OAAO,IAAI,YAAY,IAAI,6CAAoB;AAC/C,OAAO,IAAI,uBAAuB,IAAI,6CAAoB;AAC1D,OAAO,IAAI,uBAAuB,IAAI,6CAAoB;AAC1D,OAAO,OAAO,YAAY,IAAI,6CAAoB;AAElD,IAAO,iBAAQ;",
-  "names": []
-}

@@ -7,13 +7,13 @@ export class UsuarioController {
   async create(req: Request, res: Response) {
     var { nome, rg, cpf, endereco, email, telefone, senha, ativo } = req.body
 
-    const hashedPassword = await bcrypt.hash(req.body.senha, 15)
+    const hashedPassword = await bcrypt.hash(senha, 15)
 
     try {
       const novoUsuario = usuarioRepository.create({ nome, rg, cpf, endereco, email, telefone, senha: hashedPassword, ativo })
       await usuarioRepository.save(novoUsuario)
 
-      return res.status(201).json(novoUsuario)
+      return res.status(201).json({ message: 'Usuário criado com sucesso' })
     } catch (error) {
       console.log(error)
       return res.status(500).json({ message: 'Internal Sever Error' })
@@ -40,13 +40,13 @@ export class UsuarioController {
 
     try {
       const usuario = await usuarioRepository.find({
-        select: ['id_usuario', 'nome', 'rg', 'cpf', 'endereco', 'email', 'telefone', 'ativo'],
+        select: ['id_usuario', 'nome', 'rg', 'cpf', 'endereco', 'email', 'telefone', 'ativo', 'createdAt'],
         where: {
           id_usuario: Number(id_usuario)
         }
       })
 
-      if (!usuario) {
+      if (usuario.length === 0) {
         return res.status(404).json({ message: 'Usuário não encontrado' })
       }
 
@@ -60,24 +60,17 @@ export class UsuarioController {
   // Atualizar usuario
   async update(req: Request, res: Response) {
     const { id_usuario } = req.params;
-    const { nome, rg, cpf, endereco, email, telefone, ativo } = req.body
+    const { nome, rg, cpf, endereco, telefone, ativo } = req.body
 
-    try {
-      const usuario = await usuarioRepository.findOneBy({
-        id_usuario: Number(id_usuario)
-      })
+    const usuario = await usuarioRepository.findOneBy({ id_usuario: Number(id_usuario) })
 
-      if (!usuario) {
-        return res.status(404).json({ message: 'Usuário não encontrado' })
-      }
-
-      usuarioRepository.update(usuario, { nome, rg, cpf, endereco, email, telefone, ativo })
-
-      return res.status(200).end()
-    } catch (error) {
-      console.log(error)
-      return res.status(500).json({ message: 'Internal Sever Error' })
+    if (!usuario) {
+      return res.status(404).json({ message: 'Usuário não encontrado' })
     }
+
+    await usuarioRepository.update({ id_usuario: Number(id_usuario) }, { nome, rg, cpf, endereco, telefone, ativo })
+
+    return res.status(204).send()
   }
 
   // Apagar usuario
@@ -90,6 +83,21 @@ export class UsuarioController {
 
     await usuarioRepository.delete({ id_usuario: Number(id_usuario) })
 
+    return res.status(204).send()
+  }
+
+  async updatePass(req: Request, res: Response) {
+    const { id_usuario } = req.params;
+    const { senha } = req.body
+
+    const usuario = await usuarioRepository.findOneBy({ id_usuario: Number(id_usuario) })
+
+    if (!usuario) {
+      return res.status(404).json({ message: 'Usuário não encontrado' })
+    }
+
+    const hashedPassword = await bcrypt.hash(senha, 15)
+    await usuarioRepository.update({ id_usuario: Number(id_usuario) }, { senha: hashedPassword })
     return res.status(204).send()
   }
 }

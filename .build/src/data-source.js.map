@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../src/data-source.ts"],
-  "sourcesContent": ["import 'dotenv/config'\nimport 'reflect-metadata'\nimport { DataSource } from 'typeorm'\n\nconst USER = process.env['DB_USER']\nconst HOST = process.env['DB_HOST']\nconst NAME = process.env['DB_NAME']\nconst PASS = process.env['DB_PASS']\n\nexport const AppDataSource = new DataSource({\n  type: 'postgres',\n  host: HOST,\n  port: 5432,\n  username: USER,\n  password: PASS,\n  database: NAME,\n  entities: [`${__dirname}/**/entities/*.{ts,js}`],\n  migrations: [`${__dirname}/**/migrations/*.{ts,js}`],\n})\n"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA,oBAAO;AACP,8BAAO;AACP,qBAA2B;AAE3B,MAAM,OAAO,QAAQ,IAAI;AACzB,MAAM,OAAO,QAAQ,IAAI;AACzB,MAAM,OAAO,QAAQ,IAAI;AACzB,MAAM,OAAO,QAAQ,IAAI;AAElB,MAAM,gBAAgB,IAAI,0BAAW;AAAA,EAC1C,MAAM;AAAA,EACN,MAAM;AAAA,EACN,MAAM;AAAA,EACN,UAAU;AAAA,EACV,UAAU;AAAA,EACV,UAAU;AAAA,EACV,UAAU,CAAC,GAAG;AAAA,EACd,YAAY,CAAC,GAAG;AAAA;",
-  "names": []
-}
