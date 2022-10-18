@@ -30,6 +30,12 @@ export class OrdemDeServico {
   @OneToMany(() => Servico, servico => servico.os)
   servicos: Servico[]
 
+  @Column({ type: 'text' })
+  id_cliente: string
+
+  @Column({ type: 'text' })
+  id_funcionario: string
+
   @CreateDateColumn()
   createdAt: Date
 

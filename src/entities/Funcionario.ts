@@ -6,7 +6,7 @@ import {
 
 @Entity('funcionarios')
 export class Funcionario {
-  @PrimaryGeneratedColumn({ primaryKeyConstraintName: 'id_funcionario' })
+  @PrimaryGeneratedColumn({ primaryKeyConstraintName: 'pk_id_funcionario' })
   id_funcionario: number
 
   @Column({ type: 'text' })
