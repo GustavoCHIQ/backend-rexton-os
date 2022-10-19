@@ -20,7 +20,7 @@ export class Servico {
   @Column({ type: 'float' })
   valor: number
 
-  @ManyToOne(() => OrdemDeServico, os => os.servicos)
+  @ManyToOne(() => OrdemDeServico, ordemDeServico => ordemDeServico.id_os)
   os: OrdemDeServico
 
   @CreateDateColumn()

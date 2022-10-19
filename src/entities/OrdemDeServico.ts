@@ -5,6 +5,7 @@ import {
   JoinColumn,
   OneToMany,
   OneToOne,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm'
@@ -19,22 +20,17 @@ export class OrdemDeServico {
   @PrimaryGeneratedColumn({ primaryKeyConstraintName: 'pk_id_os' })
   id_os: number
 
-  @OneToOne(() => Cliente)
-  @JoinColumn({ name: 'id_cliente', foreignKeyConstraintName: 'fk_id_cliente' })
+  @ManyToOne(() => Cliente, cliente => cliente.id_cliente)
+  @JoinColumn({ name: 'cliente' })
   cliente: Cliente
 
-  @OneToOne(() => Funcionario)
-  @JoinColumn({ name: 'id_funcionario', foreignKeyConstraintName: 'fk_id_funcionario' })
+  @ManyToOne(() => Funcionario, funcionario => funcionario.id_funcionario)
+  @JoinColumn({ name: 'funcionario' })
   funcionario: Funcionario
 
-  @OneToMany(() => Servico, servico => servico.os)
-  servicos: Servico[]
-
-  @Column({ type: 'text' })
-  id_cliente: string
-
-  @Column({ type: 'text' })
-  id_funcionario: string
+  @ManyToOne(() => Servico, servico => servico.id_servico)
+  @JoinColumn({ name: 'id_servico' })
+  servico: Servico
 
   @CreateDateColumn()
   createdAt: Date
