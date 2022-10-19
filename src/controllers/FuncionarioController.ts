@@ -5,15 +5,13 @@ export class FuncionarioController {
 
     // Criar Funcionario
     async create(req: Request, res: Response) {
-        var { nome, cpf, endereco, dataNascimento, dataAdmissao, dataDemissao, ativo } = req.body
+        const { nome, cpf, endereco, dataNascimento, dataAdmissao, dataDemissao, ativo } = req.body
 
         try {
-            const novoFuncionario = funcionarioRepository.create({ nome, cpf, endereco, dataNascimento, dataAdmissao, dataDemissao, ativo })
-            await funcionarioRepository.save(novoFuncionario)
+            const novoFuncionario = await funcionarioRepository.save({ nome, cpf, endereco, dataNascimento, dataAdmissao, dataDemissao, ativo })
 
             return res.status(201).json({ message: 'Funcionário criado com sucesso' })
         } catch (error) {
-            console.log(error)
             return res.status(500).json({ message: 'Internal Sever Error' })
         }
     }
@@ -27,7 +25,6 @@ export class FuncionarioController {
 
             return res.status(200).json(funcionario)
         } catch (error) {
-            console.log(error)
             return res.status(500).json({ message: 'Internal Sever Error' })
         }
     }
@@ -60,19 +57,17 @@ export class FuncionarioController {
         const { id_funcionario } = req.params;
         const { nome, cpf, endereco, dataNascimento, dataAdmissao, dataDemissao, ativo } = req.body
 
-        const funcionario = await funcionarioRepository.findOneBy({ id_funcionario: Number(id_funcionario) })
-
-        if (!funcionario) {
-            return res.status(404).json({ message: 'Funcionário não encontrado' })
-        }
-
-        funcionarioRepository.merge(funcionario, { nome, cpf, endereco, dataNascimento, dataAdmissao, dataDemissao, ativo })
-
         try {
-            await funcionarioRepository.save(funcionario)
+            const funcionario = await funcionarioRepository.findOneBy({ id_funcionario: Number(id_funcionario) })
+
+            if (!funcionario) {
+                return res.status(404).json({ message: 'Funcionário não encontrado' })
+            }
+            await funcionarioRepository.update({ id_funcionario: Number(id_funcionario) }, { nome, cpf, endereco, dataNascimento, dataAdmissao, dataDemissao, ativo })
+
             return res.status(200).json({ message: 'Funcionário atualizado com sucesso' })
-        } catch (error) {
-            console.log(error)
+        }
+        catch (error) {
             return res.status(500).json({ message: 'Internal Sever Error' })
         }
     }
@@ -81,17 +76,18 @@ export class FuncionarioController {
     async delete(req: Request, res: Response) {
         const { id_funcionario } = req.params;
 
-        const funcionario = await funcionarioRepository.findOneBy({ id_funcionario: Number(id_funcionario) })
-
-        if (!funcionario) {
-            return res.status(404).json({ message: 'Funcionário não encontrado' })
-        }
-
         try {
-            await funcionarioRepository.delete(funcionario)
+            const funcionario = await funcionarioRepository.findOneBy({
+                id_funcionario: Number(id_funcionario)
+            })
+
+            if (!funcionario) {
+                return res.status(404).json({ message: 'Funcionário não encontrado' })
+            }
+            await funcionarioRepository.delete({ id_funcionario: Number(id_funcionario) })
+
             return res.status(200).json({ message: 'Funcionário deletado com sucesso' })
         } catch (error) {
-            console.log(error)
             return res.status(500).json({ message: 'Internal Sever Error' })
         }
     }

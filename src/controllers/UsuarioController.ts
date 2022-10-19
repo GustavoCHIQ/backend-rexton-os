@@ -10,8 +10,7 @@ export class UsuarioController {
     const hashedPassword = await bcrypt.hash(senha, 15)
 
     try {
-      const novoUsuario = usuarioRepository.create({ nome, rg, cpf, endereco, email, telefone, senha: hashedPassword, ativo })
-      await usuarioRepository.save(novoUsuario)
+      const novoUsuario = usuarioRepository.save({ nome, rg, cpf, endereco, email, telefone, senha: hashedPassword, ativo })
 
       return res.status(201).json({ message: 'Usuário criado com sucesso' })
     } catch (error) {
@@ -46,7 +45,7 @@ export class UsuarioController {
         }
       })
 
-      if (usuario.length === 0) {
+      if (!usuario) {
         return res.status(404).json({ message: 'Usuário não encontrado' })
       }
 
@@ -62,28 +61,36 @@ export class UsuarioController {
     const { id_usuario } = req.params;
     const { nome, rg, cpf, endereco, telefone, ativo } = req.body
 
-    const usuario = await usuarioRepository.findOneBy({ id_usuario: Number(id_usuario) })
+    try {
+      if (!await usuarioRepository.findOneBy({ id_usuario: Number(id_usuario) })) {
+        return res.status(404).json({ message: 'Usuário não encontrado' })
+      }
 
-    if (!usuario) {
-      return res.status(404).json({ message: 'Usuário não encontrado' })
+      await usuarioRepository.update({ id_usuario: Number(id_usuario) }, { nome, rg, cpf, endereco, telefone, ativo })
+
+      return res.status(204).json({ message: 'Usuário atualizado com sucesso' })
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ message: 'Internal Sever Error' })
     }
-
-    await usuarioRepository.update({ id_usuario: Number(id_usuario) }, { nome, rg, cpf, endereco, telefone, ativo })
-
-    return res.status(204).send()
   }
 
   // Apagar usuario
   async delete(req: Request, res: Response) {
     const { id_usuario } = req.params;
 
-    if (!(await usuarioRepository.findOneBy({ id_usuario: Number(id_usuario) }))) {
-      return res.status(404).json({ message: 'Usuário não encontrado' })
+    try {
+      if (!(await usuarioRepository.findOneBy({ id_usuario: Number(id_usuario) }))) {
+        return res.status(404).json({ message: 'Usuário não encontrado' })
+      }
+
+      await usuarioRepository.delete({ id_usuario: Number(id_usuario) })
+
+      return res.status(204).send()
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ message: 'Internal Sever Error' })
     }
-
-    await usuarioRepository.delete({ id_usuario: Number(id_usuario) })
-
-    return res.status(204).send()
   }
 
   async updatePass(req: Request, res: Response) {

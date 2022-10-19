@@ -36,8 +36,11 @@ routes.get('/servico/:id_servico', new ServicoController().findById)
 routes.put('/servico/:id_servico', new ServicoController().update)
 routes.delete('/servico/:id_servico', new ServicoController().delete)
 
-// Rotas OrdemDeServicos
+// Rotas Ordem De Servicos
 routes.post('/ordemdeservico', new OrdemDeServicoController().create)
 routes.get('/ordemdeservico', new OrdemDeServicoController().findAll)
+routes.get('/ordemdeservico/:id_os', new OrdemDeServicoController().findById)
+routes.put('/ordemdeservico/:id_os', new OrdemDeServicoController().update)
+routes.delete('/ordemdeservico/:id_os', new OrdemDeServicoController().delete)
 
 export default routes
