@@ -8,6 +8,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  IsNull,
 } from 'typeorm'
 
 import { Cliente } from './Cliente'
@@ -32,9 +33,21 @@ export class OrdemDeServico {
   @JoinColumn({ name: 'id_servico' })
   servico: Servico
 
-  @CreateDateColumn()
+  @Column({ name: "data_inicio", type: "date", default: "now()" })
+  data_inicio: string
+
+  @Column({ name: "data_fim", type: "date", nullable: true })
+  data_fim: string
+
+  @Column({ type: 'varchar', name: 'observacao' })
+  observacao: string
+
+  @Column({ nullable: true })
+  finalizado: boolean
+
+  @CreateDateColumn({ nullable: true })
   createdAt: Date
 
-  @UpdateDateColumn()
+  @UpdateDateColumn({ nullable: true })
   updatedAt: Date
 }

@@ -21,7 +21,7 @@ export class Funcionario {
   @Column({ type: 'boolean', default: true })
   ativo: string
 
-  @Column({ type: 'text' })
+  @Column({ type: 'date' })
   dataNascimento: string
 
   @Column({ type: 'text' })

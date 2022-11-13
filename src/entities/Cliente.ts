@@ -32,7 +32,7 @@ export class Cliente {
   @Column({ type: 'text' })
   email: string
 
-  @Column({ type: 'text' })
+  @Column({ type: 'date' })
   dataNascimento: string
 
   @Column({ type: 'boolean', default: true })
