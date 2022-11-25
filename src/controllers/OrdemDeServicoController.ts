@@ -57,7 +57,10 @@ export class OrdemDeServicoController {
     async findAll(req: Request, res: Response) {
         try {
             const ordemDeServico = await ordemDeServicoRepository.find({
-                relations: ['cliente', 'funcionario', 'servico']
+                relations: ['cliente', 'funcionario', 'servico'],
+                where: {
+                    finalizado: false,
+                }
             })
 
             if (ordemDeServico.length === 0) {

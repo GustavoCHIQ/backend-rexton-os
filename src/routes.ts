@@ -14,6 +14,8 @@ routes.get('/usuario/:id_usuario', new UsuarioController().findById)
 routes.put('/usuario/:id_usuario', new UsuarioController().update)
 routes.delete('/usuario/:id_usuario', new UsuarioController().delete)
 routes.post('/usuario/:id_usuario', new UsuarioController().updatePass)
+// login
+routes.post('/login', new UsuarioController().loginUsuario)
 
 // Rotas Clientes
 routes.post('/cliente', new ClienteController().create)

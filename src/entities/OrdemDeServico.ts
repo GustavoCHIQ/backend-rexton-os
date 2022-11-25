@@ -42,7 +42,7 @@ export class OrdemDeServico {
   @Column({ type: 'varchar', name: 'observacao' })
   observacao: string
 
-  @Column({ nullable: true })
+  @Column({ nullable: true, default: false })
   finalizado: boolean
 
   @CreateDateColumn({ nullable: true })

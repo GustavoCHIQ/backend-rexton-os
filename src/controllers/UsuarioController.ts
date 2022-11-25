@@ -93,6 +93,7 @@ export class UsuarioController {
     }
   }
 
+  // atulizar senha
   async updatePass(req: Request, res: Response) {
     const { id_usuario } = req.params;
     const { senha } = req.body
@@ -106,5 +107,35 @@ export class UsuarioController {
     const hashedPassword = await bcrypt.hash(senha, 15)
     await usuarioRepository.update({ id_usuario: Number(id_usuario) }, { senha: hashedPassword })
     return res.status(204).send()
+  }
+
+  async loginUsuario(req: Request, res: Response) {
+    const { email, senha } = req.body
+
+    try {
+
+      if (!email || !senha) {
+        return res.status(400).json({ message: 'Email e senha são obrigatórios' })
+      }
+
+      const usuario = await usuarioRepository.findOneBy({
+        email: email
+      })
+
+      if (!usuario) {
+        return res.status(404).json({ message: 'Usuário não encontrado' })
+      }
+
+      const validPassword = await bcrypt.compare(senha, usuario.senha)
+
+      if (!validPassword) {
+        return res.status(401).json({ message: 'Senha incorreta' })
+      }
+
+      return res.status(200).json({ message: 'Login realizado com sucesso' })
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({ message: 'Internal Sever Error' })
+    }
   }
 }
